@@ -1,5 +1,9 @@
 import sqlite3
 import os
+#Esta clase solo crea el la base de datos donde se van almacenar la tabla de contenido
+#No busca una tabla en especifico solo inserta la hora de la busqueda y los archivos buscados por openai
+#Este codigo fue creado por xelastone
+
 class datos:
     def __int__(self,db='data_openai.db'):
         self.conexion=sqlite3.connect(db)
