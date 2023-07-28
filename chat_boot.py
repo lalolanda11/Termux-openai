@@ -4,7 +4,10 @@ import openai
 import os
 import time
 import base
-os.mkdir(os.getcwd()+"/db")
+if os.path.isdir(os.getcwd()+"/db"):
+  pass
+else:
+  os.mkdir(os.getcwd()+"/db")
 tabla=base.db()
 #api prueba ---> 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
 
