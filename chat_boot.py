@@ -5,7 +5,7 @@ import os
 import time
 import database
 os.mkdir(os.getcwd()+"/db")
-tabla=database.db()
+tabla=base.db()
 #api prueba ---> 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
 
 #print(os.getcwd())
@@ -39,7 +39,7 @@ while True:
         with open("dato.txt","w") as f:
             f.write(str(info))
             f.flush()
-            tabla.insert(str(time.ctime()),str(info))
+            tabla.insertar(str(time.ctime()),str(info))
         os.system("cat dato.txt | termux-tts-speak ")
         print(info)
         print(type(res))
