@@ -1,6 +1,6 @@
-import openai
 import os
-import baseimport openai
+import base
+import openai
 import os
 import time
 import database
