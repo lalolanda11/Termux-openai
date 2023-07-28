@@ -1,64 +1,46 @@
 import sqlite3
 from os import path, getcwd
 
-
+#Esta clase Crea la tabla de contenido de la base de datos
 class db:
-    def __init__(self, db='hacksec_mail.db'):
-        self.conn = sqlite3.connect(path.join("/data/data/com.termux/files/home/spam_box/hacksec_tempmail/", "db", db))
+    def __init__(self, db='DatosOpenAI.db'):
+        self.conn = sqlite3.connect(path.join(os.getcwd(), "db", db))
         self.cur = self.conn.cursor()
         self.cur.execute("""
-        CREATE TABLE IF NOT EXISTS hacksec (
+        CREATE TABLE IF NOT EXISTS openAI (
             id	INTEGER UNIQUE NOT NULL PRIMARY KEY AUTOINCREMENT,
             fecha	TEXT,
             datos       TEXT
         )
         """)
-        self.cur.execute("""
-        CREATE TABLE IF NOT EXISTS user (
-            id	INTEGER UNIQUE NOT NULL PRIMARY KEY AUTOINCREMENT,
-            username	TEXT NOT NULL UNIQUE,
-            password	TEXT NOT NULL,
-            active	INTEGER NOT NULL
-        )
-        """)
         self.conn.commit()
-
-    def insert(self, var1,var2):
+#Este metodo de clase inserta los valores a la tabla llamada openAI
+    def insertar(self, var1,var2):
         self.cur.execute(
-            "INSERT INTO hacksec VALUES (NULL, ?,?)", (var1,var2))
+            "INSERT INTO openAI VALUES (NULL, ?,?)", (var1,var2))
         self.conn.commit()
         return True
 
-    def view(self):
-        self.cur.execute("SELECT * FROM hacksec")
+    def ver(self):
+        self.cur.execute("SELECT * FROM openAI")
         rows = self.cur.fetchall()
         return rows
 
-    def view_single(self, id):
-        self.cur.execute("SELECT * FROM hacksec WHERE id=?", (id,))
+    def buscarId(self, id):
+        self.cur.execute("SELECT * FROM openAI WHERE id=?", (id,))
         rows = self.cur.fetchall()
         return rows
-
-    def search(self, from_email="", subject=""):
+#
+    def Buscar(self,var1,var2):
         self.cur.execute(
-            "SELECT * FROM hacksec WHERE from_email=? OR subject=?", (from_email, subject))
+            "SELECT * FROM openAI WHERE =? fecha=? OR  datos=?", (var1, var2))
         rows = self.cur.fetchall()
         return rows
-
-    def delete(self, id):
-        self.cur.execute("DELETE FROM hacksec WHERE id=?", (id,))
+        pass
+    def eliminar(self, id):
+        self.cur.execute("DELETE FROM openAI WHERE id=?", (id,))
         self.conn.commit()
         return True
-
-    def delete_all(self,to):
-        self.cur.execute("DELETE * FROM hacksec WHERE to_email=?", (to,))
-        self.conn.commit()
-        return True
-
-    def find_by_user(self,to):
-        self.cur.execute("SELECT * FROM hacksec WHERE to_email=?", (to,))
-        rows = self.cur.fetchall()
-        return rows
 
     def __del__(self):
         self.conn.close()
