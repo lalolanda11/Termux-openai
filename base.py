@@ -7,7 +7,7 @@ from os import path, getcwd
 #x3l4-s7on3
 class db:
     def __init__(self, db='DatosOpenAI.db'):
-        self.conn = sqlite3.connect(path.join(os.getcwd(), "db", db))
+        self.conn = sqlite3.connect(path.join(getcwd(), "db", db))
         self.cur = self.conn.cursor()
         self.cur.execute("""
         CREATE TABLE IF NOT EXISTS openAI (
