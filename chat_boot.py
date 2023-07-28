@@ -1,24 +1,31 @@
 import openai
 import os
-import base
-basedatos=dato()                                                                                                                                                                                                   
-print(os.getcwd())
-#CXod
-#Aqui va la api de openai 
-#Si no tienes un api, debes de registrarte en la pagina oficial de openai pára tener un api
-#Ingresa el api en la variable llamada api
+import time
+import database
+os.mkdir(os.getcwd()+"/db")
+tabla=database.db()
+#api prueba ---> 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
+
+#print(os.getcwd())
+#Ingresa el api key de openai en la variable api
+#Si no tienes api key puedes crear una cuenta en openAI
 api=""
 openai.api_key=api
 #dato=input('Dato ')
 chat=[]
+import os
+cuestion=["cual es tú nombre","quien te programo"]
+
 while True:
-    #Puedes cambiar el nombre de la entrada 
+  #puedes cambiar el nombre de la entrada por el suyo
     pregunta=input('Xelastone@archroot \n $ ')
     if pregunta == 'c' or pregunta == "quit":
             break
-    elif pregunta == "quien creo el codigo" or pregunta == "cual es mi nombre":
-        os.system("termux-tts-speak Este codigo fue creado por xela stone y mi nombre es elena stone")
-        os.system("clear")
+    elif pregunta in cuestion[:]:
+                    os.system("termux-tts-speak mi nombre es chatgpt y este documento fue creado por Eduardo Stone. usando la libreria openai. El nombre que me otorgaron es elena stone. buenas vibras")
+
+    elif pregunta == "clear" or pregunta == "cls":
+                    os.system("clear")
     else:
 
 
@@ -27,8 +34,10 @@ while True:
                 messages=[{"role":"user",'content':pregunta}]
         )
         info=res["choices"][0]['message']["content"]
-
-
-
+        with open("dato.txt","w") as f:
+            f.write(str(info))
+            f.flush()
+            tabla.insert(str(time.ctime()),str(info))
+        os.system("cat dato.txt | termux-tts-speak ")
         print(info)
         print(type(res))
