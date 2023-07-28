@@ -4,6 +4,8 @@ import time
 import database
 os.mkdir(os.getcwd()+"/db")
 tabla=database.db()
+#api prueba ---> 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
+
 #print(os.getcwd())
 #Ingresa el api key de openai en la variable api
 #Si no tienes api key puedes crear una cuenta en openAI
